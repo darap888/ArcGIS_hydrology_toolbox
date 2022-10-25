@@ -1,0 +1,104 @@
+# -*- coding: cp1250 -*-
+# Heap
+# Created by Bc. Petr Novák, 2015/04
+# Faculty of Environmental Sciences
+# Czech University of Life Sciences Prague 
+
+'''
+Modul "halda.py" seøadí seznam do haldy s nejvìtším èíslem na zaèátku a 
+pomocí funkce cr_list lze vytvoøit seøazenı seznam hodnot.
+'''
+
+# Vytvoøí binární haldu ze seznamu
+def cr_heap (seznam, index=2):
+    heap=[]
+    for i in seznam:
+        inz_el (heap, i, index)
+    return heap
+
+# Pøidá prvek na konec seznamu a nechá ho proskákat haldou
+def inz_el (sez, x, index=2):
+    sez.append (x)
+    # Index vloeného èísla
+    j = len(sez)   
+    while j > 1:
+        # Index nahrazeného prvku
+        p = j / 2  
+        # Porovná vloenı prvek a jeho nadøazenı a pøípadnì je vymìní
+        if isinstance(sez[p-1],int):
+            if sez[j-1] > sez[p-1]: 
+                d = sez[j-1]
+                sez[j-1] = sez[p-1]
+                sez[p-1] = d
+                # Posun v haldì na pøedchùdce
+                j = p  
+            else:                       
+                break
+        else:
+            if sez[j-1][index] > sez[p-1][index]: 
+                d = sez[j-1]
+                sez[j-1] = sez[p-1]
+                sez[p-1] = d 
+                # Posun v haldì na pøedchùdce
+                j = p  
+            else:                       
+                break
+            
+# Odstraní prvek z vrcholu haldy a nahradí ho dalším nejvyšším èíslem           
+def ret_max (heap, index=2):
+    # Pøesune poslední prvek haldy na vrchol
+    heap[0] = heap[-1]  
+    del heap [-1]       
+    # Index posledního èísla
+    j = len(heap)-1     
+    # Index porovnávaného èísla
+    i = 0               
+    # Platí pro haldu obsahující více, ne jedno èíslo
+    while j > 0: 
+        # Index následníka       
+        n = 2*(i+1)-1   
+        if n<len(heap):
+            if isinstance(heap[n] and heap[i],int):
+                # Kontrola zda existují oba následníci
+                if n < j:
+                    # Vybere ten vìtší
+                    if heap [n+1] > heap [n]:
+                        n = n+1
+                # Je-li èíslo menší ne následník, tak se vymìní
+                if heap[i] < heap[n]:
+                    d = heap[n]
+                    heap[n] = heap[i]
+                    heap[i] = d
+                    # Posun v haldì na následníka
+                    i = n   
+                else:
+                    break
+            else:
+                # Kontrola zda existují oba následníci
+                if n < j:
+                    # Vybere ten vìtší
+                    if heap [n+1][index] > heap [n][index]:
+                        n = n+1
+                # Je-li èíslo menší ne následník, tak se vymìní
+                if heap[i][index] < heap[n][index]:
+                    d = heap[n]
+                    heap[n] = heap[i]
+                    heap[i] = d
+                    # Posun v haldì na následníka
+                    i = n   
+                else:
+                    break                      
+        else:
+            break
+
+# Funkce pro vytvoøení seøazeného seznamu z existující seøazené haldy
+def cr_list (heap):
+    ssez = []
+    # Je-li v haldì alespoò jediná poloka
+    while len (heap)>0:
+        # vloí nejvìtší èíslo z haldy na konec seznamu         
+        ssez.append (heap[0])   
+        # a vrátí maximum na zaèátek haldy
+        ret_max (heap)          
+    return ssez
+
