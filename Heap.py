@@ -1,36 +1,36 @@
 # -*- coding: cp1250 -*-
 # Heap
-# Created by Bc. Petr Novák, 2015/04
+# Created by Bc. Petr NovĂˇk, 2015/04 and used by Daria Rapoport for ArcGIS Hydrology Toolbox creation
 # Faculty of Environmental Sciences
 # Czech University of Life Sciences Prague 
 
 '''
-Modul "halda.py" seřadí seznam do haldy s největším číslem na začátku a 
-pomocí funkce cr_list lze vytvořit seřazený seznam hodnot.
+Modul "halda.py" seĹ™adĂ­ seznam do haldy s nejvÄ›tĹˇĂ­m ÄŤĂ­slem na zaÄŤĂˇtku a 
+pomocĂ­ funkce cr_list lze vytvoĹ™it seĹ™azenĂ˝ seznam hodnot.
 '''
 
-# Vytvoří binární haldu ze seznamu
+# VytvoĹ™Ă­ binĂˇrnĂ­ haldu ze seznamu
 def cr_heap (seznam, index=2):
     heap=[]
     for i in seznam:
         inz_el (heap, i, index)
     return heap
 
-# Přidá prvek na konec seznamu a nechá ho proskákat haldou
+# PĹ™idĂˇ prvek na konec seznamu a nechĂˇ ho proskĂˇkat haldou
 def inz_el (sez, x, index=2):
     sez.append (x)
-    # Index vloženého čísla
+    # Index vloĹľenĂ©ho ÄŤĂ­sla
     j = len(sez)   
     while j > 1:
-        # Index nahrazeného prvku
+        # Index nahrazenĂ©ho prvku
         p = j / 2  
-        # Porovná vložený prvek a jeho nadřazený a případně je vymění
+        # PorovnĂˇ vloĹľenĂ˝ prvek a jeho nadĹ™azenĂ˝ a pĹ™Ă­padnÄ› je vymÄ›nĂ­
         if isinstance(sez[p-1],int):
             if sez[j-1] > sez[p-1]: 
                 d = sez[j-1]
                 sez[j-1] = sez[p-1]
                 sez[p-1] = d
-                # Posun v haldě na předchůdce
+                # Posun v haldÄ› na pĹ™edchĹŻdce
                 j = p  
             else:                       
                 break
@@ -39,66 +39,66 @@ def inz_el (sez, x, index=2):
                 d = sez[j-1]
                 sez[j-1] = sez[p-1]
                 sez[p-1] = d 
-                # Posun v haldě na předchůdce
+                # Posun v haldÄ› na pĹ™edchĹŻdce
                 j = p  
             else:                       
                 break
             
-# Odstraní prvek z vrcholu haldy a nahradí ho dalším nejvyšším číslem           
+# OdstranĂ­ prvek z vrcholu haldy a nahradĂ­ ho dalĹˇĂ­m nejvyĹˇĹˇĂ­m ÄŤĂ­slem           
 def ret_max (heap, index=2):
-    # Přesune poslední prvek haldy na vrchol
+    # PĹ™esune poslednĂ­ prvek haldy na vrchol
     heap[0] = heap[-1]  
     del heap [-1]       
-    # Index posledního čísla
+    # Index poslednĂ­ho ÄŤĂ­sla
     j = len(heap)-1     
-    # Index porovnávaného čísla
+    # Index porovnĂˇvanĂ©ho ÄŤĂ­sla
     i = 0               
-    # Platí pro haldu obsahující více, než jedno číslo
+    # PlatĂ­ pro haldu obsahujĂ­cĂ­ vĂ­ce, neĹľ jedno ÄŤĂ­slo
     while j > 0: 
-        # Index následníka       
+        # Index nĂˇslednĂ­ka       
         n = 2*(i+1)-1   
         if n<len(heap):
             if isinstance(heap[n] and heap[i],int):
-                # Kontrola zda existují oba následníci
+                # Kontrola zda existujĂ­ oba nĂˇslednĂ­ci
                 if n < j:
-                    # Vybere ten větší
+                    # Vybere ten vÄ›tĹˇĂ­
                     if heap [n+1] > heap [n]:
                         n = n+1
-                # Je-li číslo menší než následník, tak se vymění
+                # Je-li ÄŤĂ­slo menĹˇĂ­ neĹľ nĂˇslednĂ­k, tak se vymÄ›nĂ­
                 if heap[i] < heap[n]:
                     d = heap[n]
                     heap[n] = heap[i]
                     heap[i] = d
-                    # Posun v haldě na následníka
+                    # Posun v haldÄ› na nĂˇslednĂ­ka
                     i = n   
                 else:
                     break
             else:
-                # Kontrola zda existují oba následníci
+                # Kontrola zda existujĂ­ oba nĂˇslednĂ­ci
                 if n < j:
-                    # Vybere ten větší
+                    # Vybere ten vÄ›tĹˇĂ­
                     if heap [n+1][index] > heap [n][index]:
                         n = n+1
-                # Je-li číslo menší než následník, tak se vymění
+                # Je-li ÄŤĂ­slo menĹˇĂ­ neĹľ nĂˇslednĂ­k, tak se vymÄ›nĂ­
                 if heap[i][index] < heap[n][index]:
                     d = heap[n]
                     heap[n] = heap[i]
                     heap[i] = d
-                    # Posun v haldě na následníka
+                    # Posun v haldÄ› na nĂˇslednĂ­ka
                     i = n   
                 else:
                     break                      
         else:
             break
 
-# Funkce pro vytvoření seřazeného seznamu z existující seřazené haldy
+# Funkce pro vytvoĹ™enĂ­ seĹ™azenĂ©ho seznamu z existujĂ­cĂ­ seĹ™azenĂ© haldy
 def cr_list (heap):
     ssez = []
-    # Je-li v haldě alespoň jediná položka
+    # Je-li v haldÄ› alespoĹ jedinĂˇ poloĹľka
     while len (heap)>0:
-        # vloží největší číslo z haldy na konec seznamu         
+        # vloĹľĂ­ nejvÄ›tĹˇĂ­ ÄŤĂ­slo z haldy na konec seznamu         
         ssez.append (heap[0])   
-        # a vrátí maximum na začátek haldy
+        # a vrĂˇtĂ­ maximum na zaÄŤĂˇtek haldy
         ret_max (heap)          
     return ssez
 
