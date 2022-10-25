@@ -1,27 +1,27 @@
 # -*- coding: cp1250 -*-
 # Raster to Numpy.Array
-# Created by Bc. Petr Novák, 2015/04
+# Created by Bc. Petr NovĂˇk, 2015/04, used by Daria Rapoport for ArcGIS Hydrology Toolbox creation
 # Faculty of Environmental Sciences
 # Czech University of Life Sciences Prague 
 
 import os, arcpy
 import numpy as np
 
-# Funkce pro převod rastru do numpy.array
+# Funkce pro pĂ¸evod rastru do numpy.array
 def rta (rast):
-    # Načte rastr
+    # NaĂ¨te rastr
     inRas = arcpy.Raster(rast)                                    
-    # Zjistí jeho souřadnice
+    # ZjistĂ­ jeho souĂ¸adnice
     lowerLeftX = inRas.extent.XMin
     lowerLeftY = inRas.extent.YMin  
-    # Zjistí velikost pixelu
+    # ZjistĂ­ velikost pixelu
     sCell = inRas.meanCellWidth
     vCell = inRas.meanCellHeight
-    # Převede rastr na numpy.array
+    # PĂ¸evede rastr na numpy.array
     new_ar=arcpy.RasterToNumPyArray(rast,nodata_to_value=-9999)       
-    # Počet hodnout v řádku
+    # PoĂ¨et hodnout v Ă¸Ăˇdku
     XMax= new_ar.shape[0]   
-    # Počet řádku
+    # PoĂ¨et Ă¸Ăˇdku
     YMax= new_ar.shape[1]   
     return new_ar, XMax, YMax, vCell, lowerLeftX, lowerLeftY
 
