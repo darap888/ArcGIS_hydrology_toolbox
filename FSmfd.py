@@ -1,7 +1,6 @@
 # -*- coding: cp1250 -*-
 # Multiple Flow Simulation surface drainage
 # Created by Daria Rapoport, 2016/04,
-# based on script created by Bc. Petr Novák, 2015/04:
 # modules "rta" and "Heap"; functions "slope","neighbors_xy" and "neighbors_z" are taken unchanged.
 # Faculty of Environmental Sciences
 # Czech University of Life Sciences Prague 
