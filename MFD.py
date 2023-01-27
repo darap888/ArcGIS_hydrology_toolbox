@@ -3,7 +3,6 @@
 # Multiple Flow Direction
 
 # Created by Daria Rapoport, 2016/04,
-# based on script created by Bc. Petr Novák, 2015/04:
 # module "rta" and functions "slope" and "neighbors_z" are taken unchanged.
 
 # Faculty of Environmental Sciences
