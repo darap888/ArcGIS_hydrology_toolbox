@@ -1,8 +1,7 @@
 # -*- coding: cp1250 -*-
 
-# Only part of the script is created by Daria Rapoport, 2016/04,
-# based on the script created by Bc. Petr Novák, 2015/04:
-# # Faculty of Environmental Sciences
+# created by Daria Rapoport, 2016/04,
+# # # Faculty of Environmental Sciences
 # Czech University of Life Sciences Prague
 #Script creates raster of Peucke and Douglass' weights
 
@@ -10,18 +9,18 @@
 # Unchanged part of Novak
 
 # Peucke and Douglass
-# Created by Bc. Petr Novák, 2015/04
+# Created by Bc. Petr NovĂˇk, 2015/04
 # Faculty of Environmental Sciences
 # Czech University of Life Sciences Prague 
  
 '''
-Skript obsahuje dvě funkce: nPaD a PaD. 
-nPaD hledá elevaci a souřadnice tří sousedních buněk. 
-PaD načte vstupní DEM, převede jej na array a následně 
-prochází array za pomocí okna o velikosti 2x2 buňky. 
-Porovná tak elevaci každou buňky DEM s jejími třemi sousedy. 
-Buňky, které nebyly ani jednou označeny za nejvyšší 
-z dané čtveřice, jsou s hodnotou 1 zapsány do výsledného rastru.
+Skript obsahuje dvĂ¬ funkce: nPaD a PaD. 
+nPaD hledĂˇ elevaci a souĂ¸adnice tĂ¸Ă­ sousednĂ­ch bunĂ¬k. 
+PaD naĂ¨te vstupnĂ­ DEM, pĂ¸evede jej na array a nĂˇslednĂ¬ 
+prochĂˇzĂ­ array za pomocĂ­ okna o velikosti 2x2 buĂ˛ky. 
+PorovnĂˇ tak elevaci kaĹľdou buĂ˛ky DEM s jejĂ­mi tĂ¸emi sousedy. 
+BuĂ˛ky, kterĂ© nebyly ani jednou oznaĂ¨eny za nejvyĹˇĹˇĂ­ 
+z danĂ© Ă¨tveĂ¸ice, jsou s hodnotou 1 zapsĂˇny do vĂ˝slednĂ©ho rastru.
 '''
 
 import os, math, arcpy, sys
@@ -29,10 +28,10 @@ import numpy as np
 import rta as rt
 arcpy.env.overwriteOutput = True
 
-# x,y souřadnice a elevace tří sousedních buněk
+# x,y souĂ¸adnice a elevace tĂ¸Ă­ sousednĂ­ch bunĂ¬k
 def nPaD(array,x,y):
     n0=array[x,y+1] #elevace
-    n3=[x,y+1]      #souřadnice
+    n3=[x,y+1]      #souĂ¸adnice
     n1=array[x+1,y+1]
     n4=[x+1,y+1]
     n2=array[x+1,y]    
@@ -40,8 +39,8 @@ def nPaD(array,x,y):
     return n0, n1, n2, n3, n4, n5
 
 def PaD(in_dem):
-    arcpy.AddMessage("PaD: Načítám data...")
-    # Načte rastr DEM do np.array
+    arcpy.AddMessage("PaD: NaĂ¨Ă­tĂˇm data...")
+    # NaĂ¨te rastr DEM do np.array
     inDEM = rt.rta(in_dem)
     XMax = inDEM[1]
     YMax = inDEM[2]
@@ -49,19 +48,19 @@ def PaD(in_dem):
     LeftX = inDEM[4]
     LextY = inDEM[5]
 
-    arcpy.AddMessage( "PaD: Data načtena, začíná výpočet")
-    # Nový np.array hodnot = 1
+    arcpy.AddMessage( "PaD: Data naĂ¨tena, zaĂ¨Ă­nĂˇ vĂ˝poĂ¨et")
+    # NovĂ˝ np.array hodnot = 1
     PaD_aray = np.ones([XMax,YMax])
 
-    # Prohledá celý rastr 
+    # ProhledĂˇ celĂ˝ rastr 
     for x in range (0,XMax-1):
         for y in range (0,YMax-1):
             nb=nPaD(inDEM[0],x,y)
-            # Porovná čtveřice hodnot a najde nejvyšší elevaci
+            # PorovnĂˇ Ă¨tveĂ¸ice hodnot a najde nejvyĹˇĹˇĂ­ elevaci
             if inDEM[0][x][y] > nb[0]:
                 if inDEM[0][x][y] > nb[1]:
                     if inDEM[0][x][y] > nb[2]:
-                        # Všem nejvyšším elevacím přiřadí = 0
+                        # VĹˇem nejvyĹˇĹˇĂ­m elevacĂ­m pĂ¸iĂ¸adĂ­ = 0
                         PaD_aray[x,y] = 0
                     else:
                         PaD_aray[nb[5][0],nb[5][1]] = 0
@@ -79,7 +78,7 @@ def PaD(in_dem):
             else:
                 PaD_aray[nb[5][0],nb[5][1]] = 0
 
-    arcpy.AddMessage("PaD: Rastr vah metodou Peucker and Douglas vytvořen")
+    arcpy.AddMessage("PaD: Rastr vah metodou Peucker and Douglas vytvoĂ¸en")
     return PaD_aray
 
 #Small part created by Daria Rapoport, which creates raster of Peucker and Douglas weights of input DEM raster
