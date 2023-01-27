@@ -1,6 +1,6 @@
 # -*- coding: cp1250 -*-
 # Heap
-# Created by Bc. Petr Novák, 2015/04, used by Daria Rapoport for ArcGIS Hydrology Toolbox creation
+# based on script created by Bc. Petr Novák, 2015/04: used by Daria Rapoport for ArcGIS Hydrology Toolbox creation
 # Faculty of Environmental Sciences
 # Czech University of Life Sciences Prague 
 
